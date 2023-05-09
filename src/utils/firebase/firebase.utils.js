@@ -2,7 +2,12 @@
 import { initializeApp } from "firebase/app";
 
 // Firebase Authentication
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 // Firestore Database
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
@@ -18,6 +23,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+// eslint-disable-next-line
 const firebaseApp = initializeApp(firebaseConfig);
 
 // Firebase Authentication
@@ -34,14 +40,15 @@ export const signInWithGooglePopup = () =>
 export const db = getFirestore();
 
 //Get user authentication data from Firestore Database
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInformation = {}
+) => {
   const userDocRef = doc(db, "users", userAuth.uid);
 
   const userSnapshot = await getDoc(userDocRef);
-  //   console.log(userSnapshot);
-  //   console.log(userSnapshot.exists());
 
-  // if user data does not exist
+  // IF user data does not exist
   if (!userSnapshot.exists()) {
     // create / set the document with the data from userAuth in my collection
     const { displayName, email } = userAuth;
@@ -53,13 +60,20 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         displayName,
         email,
         createdAt,
+        ...additionalInformation,
       });
     } catch (error) {
       console.log("error creating user in db", error.message);
     }
   }
 
-  // if user data exists
+  // IF user data exists
 
   return userDocRef;
+};
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
 };

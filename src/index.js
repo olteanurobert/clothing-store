@@ -3,6 +3,9 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 
+// Context
+import { UserProvider } from "./context/user.context";
+
 // Styles
 import "./index.scss";
 
@@ -15,7 +18,9 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <UserProvider>
+        <App />
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

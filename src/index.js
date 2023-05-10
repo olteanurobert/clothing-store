@@ -19,5 +19,3 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
-
-// clothing-store-db-a0044 firebase project id

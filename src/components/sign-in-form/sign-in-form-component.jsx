@@ -27,7 +27,6 @@ const SignInForm = () => {
 
   const SignInWithGoogle = async () => {
     const { user } = await signInWithGooglePopup();
-    // eslint-disable-next-line
     await createUserDocumentFromAuth(user);
   };
 
@@ -42,7 +41,18 @@ const SignInForm = () => {
 
       console.log(response);
       resetFormFields();
-    } catch (error) {}
+    } catch (error) {
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("incorect password for email");
+          break;
+        case "auth/user-not-found":
+          alert("no user associated with this e-mail");
+          break;
+        default:
+          console.log(error);
+      }
+    }
   };
 
   const handleChange = (event) => {
@@ -76,7 +86,7 @@ const SignInForm = () => {
 
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button onClick={SignInWithGoogle} buttonType="google">
+          <Button onClick={SignInWithGoogle} type="button" buttonType="google">
             Google sign in
           </Button>
         </div>

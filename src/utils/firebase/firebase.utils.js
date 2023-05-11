@@ -1,4 +1,4 @@
-// Initialize app
+// Initialize  Firebase App
 import { initializeApp } from "firebase/app";
 
 // Firebase Authentication
@@ -9,6 +9,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 // Firestore Database
@@ -35,6 +36,7 @@ googleProvider.setCustomParameters({
 });
 
 export const auth = getAuth();
+
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
 
@@ -54,7 +56,6 @@ export const createUserDocumentFromAuth = async (
   if (!userSnapshot.exists()) {
     // create / set the document with the data from userAuth in my collection
     const { displayName, email } = userAuth;
-
     const createdAt = new Date();
 
     try {
@@ -87,3 +88,6 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 };
 
 export const SignOutUser = async () => await signOut(auth);
+
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);

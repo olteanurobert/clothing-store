@@ -1,3 +1,4 @@
+// Styles
 import "./button.styles.scss";
 
 const Button_type_classes = {

@@ -5,6 +5,7 @@ import { createRoot } from "react-dom/client";
 
 // Context
 import { UserProvider } from "./context/user.context";
+import { ProductsProvider } from "./context/products.context";
 
 //Components
 import App from "./App";
@@ -19,7 +20,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <ProductsProvider>
+          <App />
+        </ProductsProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>

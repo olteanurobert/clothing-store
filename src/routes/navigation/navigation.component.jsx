@@ -8,6 +8,10 @@ import { SignOutUser } from "../../utils/firebase/firebase.utils";
 // Context
 import { UserContext } from "../../context/user.context";
 
+// Components
+import CartIcon from "../../components/cart-icon/cart-icon.component";
+import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
+
 // Styles
 import "./navigation.styles.scss";
 
@@ -37,7 +41,9 @@ const Navigation = () => {
               SIGN IN
             </Link>
           )}
+          <CartIcon />
         </div>
+        <CartDropdown />
       </div>
       <Outlet />
     </>

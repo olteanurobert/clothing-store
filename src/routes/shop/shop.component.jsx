@@ -1,24 +1,21 @@
-// React
-import { useContext } from "react";
+// React / Hooks
+import { Routes, Route } from "react-router-dom";
 
 // Context
-import { ProductsContext } from "../../context/products.context";
+// import { CategoriesContext } from "../../context/categories.context";
 
 // Components
-import ProductCard from "../../components/product-card/product-card.component";
+import CategoriesPreview from "../categories-preview/categories-preview.component";
+// import CategoryPreview from "../../components/category-preview/category-preview.component";
 
 // Styles
 import "./shop.styles.scss";
 
 const Shop = () => {
-  const { products } = useContext(ProductsContext);
-  console.log(products);
   return (
-    <div className="products-container">
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product}></ProductCard>
-      ))}
-    </div>
+    <Routes>
+      <Route index element={<CategoriesPreview />} />
+    </Routes>
   );
 };
 
